@@ -1,3 +1,7 @@
+export const setCart = (userId) => ({
+    type: "SET_CART",
+    payload: userId
+});
 export const addToCart = (product) => ({
     type: "ADD_TO_CART",
     payload: product

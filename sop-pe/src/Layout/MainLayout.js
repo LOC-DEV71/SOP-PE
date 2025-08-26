@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import {AuthContext} from '../Context/AuthContext';
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Footer from "./footer";
 import './MainLayout.scss';
@@ -8,25 +8,30 @@ import HeaderMain from "./header";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 
+
 function MainLayout() {
   const { currentUser, logout } = useContext(AuthContext);
   const [dropActive, setDropActive] = useState(false);
+  const naviga = useNavigate();
 
   const openMenu = () =>{
-      setDropActive(!dropActive);
+      setDropActive(dropActive => !dropActive);
   }
 
   const closeMenu = () =>{
-    setDropActive(!dropActive);
+    setDropActive(false);
   }
 
   const handleLogOut = () => {
     logout();
+    
     Swal.fire({
       title: "Logout successful!",
       icon: "success",
       draggable: true
-    }).then(() => window.location.href = "/");
+    }).then(() =>
+          naviga("/")
+    );
   };
 
   return (

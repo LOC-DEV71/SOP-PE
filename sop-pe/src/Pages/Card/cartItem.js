@@ -5,9 +5,8 @@ import Swal from 'sweetalert2';
 
 function CartItem(){
         const cart = useSelector(state => state.CartReducer);
-        // console.log(cart)
         const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-        const totalPrice = cart.reduce((total, item) => total + (item.infor.price-item.infor.price*item.infor.discountPercentage/100)*item.quantity, 0).toFixed(2);
+        const totalPrice = cart.reduce((total, item) => total + (item.price-item.price*item.discountPercentage/100)*item.quantity, 0).toFixed(2);
 
         const dispatch = useDispatch();
         const resetQuantity = (id, quantity) => {
@@ -59,17 +58,17 @@ function CartItem(){
     {cart.map(item => (
         <div className="cart__item" key={item.id}>
             <div className="cart__item-img">
-                <img src={item.infor.thumbnail} alt={item.infor.title}/>
-                <div className="cart__item-img--sale">{item.infor.discountPercentage}%</div>
-                <div className="cart__item-img-title">{item.infor.title}</div>
+                <img src={item.thumbnail} alt={item.title}/>
+                <div className="cart__item-img--sale">{item.discountPercentage}%</div>
+                <div className="cart__item-img-title">{item.title}</div>
             </div>
 
             <div className="cart__item--all">
 
                 <div className="cart__item--all-price">
-                    <div className="cart__item--all-price-priceOld">{item.infor.price}$</div>
+                    <div className="cart__item--all-price-priceOld">{item.price}$</div>
                     <div className="cart__item--all-price-priceNew">
-                        {((item.infor.price - (item.infor.price*item.infor.discountPercentage/100))).toFixed(2)}$
+                        {((item.price - (item.price*item.discountPercentage/100))).toFixed(2)}$
                     </div>
                 </div>
 
@@ -82,7 +81,7 @@ function CartItem(){
 
 
                 <div className="cart__item-priceNew">
-                    {((item.infor.price - (item.infor.price*item.infor.discountPercentage/100))*item.quantity).toFixed(2)}$
+                    {((item.price - (item.price*item.discountPercentage/100))*item.quantity).toFixed(2)}$
                 </div>
 
             </div>

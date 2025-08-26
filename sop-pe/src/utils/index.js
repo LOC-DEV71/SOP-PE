@@ -11,3 +11,9 @@ export const getUSER = async (path) =>{
     const result = response.json();
     return result;
 }
+export const getCART = async (path) =>{
+    const response = await fetch(API__DOMAIN + path)
+    const result = response.json();
+    return result;
+}
+

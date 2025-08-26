@@ -5,6 +5,7 @@ import './index.scss';
 
 function Card(){
     const item = useSelector(state => state.CartReducer);
+    
     console.log(item);
     return(
         <>

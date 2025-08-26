@@ -1,8 +1,11 @@
 import { FaCartPlus } from "react-icons/fa";
 import Modal from 'react-modal';
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { addToCart, updateQuantity } from "../../../Action";
 import { useDispatch, useSelector } from "react-redux";
+import { AuthContext } from "../../../Context/AuthContext";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 function ProductList(props){
     const {item} = props;
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -10,6 +13,8 @@ function ProductList(props){
     const cart = useSelector(state => state.CartReducer);
     const [quantity, setQuantity] = useState(1);
     const inputRef = useRef();
+    const {currentUser} = useContext(AuthContext);
+    const navigate = useNavigate();
     const customStyles = {
     content: {
         top: '50%',
@@ -32,17 +37,28 @@ function ProductList(props){
     
 
     const handleAddToCart = () => {
-    const exist = cart.find(itemCart => itemCart.id === item.id);
+        if(!currentUser){
+            Swal.fire({
+            icon: "info",
+            text: "You are not logged in, redirecting to the login page!",
+            }).then(() => {
+                navigate("/login");
+            });
+        }
+        else{
+            const exist = cart.find(itemCart => itemCart.id === item.id);
 
         if (exist) {
-            // cộng dồn thêm quantity người chọn trong modal
+            
             dispatch(updateQuantity(item.id, quantity));
-            console.log(quantity);  
+            
         } else {
-            // thêm mới sản phẩm với số lượng đã chọn
+            
             dispatch(addToCart({ ...item, quantity }));
-            console.log(item, quantity)
+           
         }
+        }
+   
     closeModal();
 };
 

@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import './ADMIN.scss';
 function Admin(){
      const { currentUser } = useContext(AuthContext);
-        console.log(currentUser);
+        // console.log(currentUser);
         if (!currentUser) return <p>Đang tải thông tin...</p>;
     return (
         

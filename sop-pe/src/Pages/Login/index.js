@@ -1,9 +1,11 @@
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import './index.scss';
-import { getUserName } from '../../service';
+import { getCartUser, getUserName } from '../../service';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setCart } from '../../Action';
 
 
 function Login() {
@@ -11,6 +13,9 @@ function Login() {
   const [userNameInput, setUserNameInput] = useState("");
   const [userPassInput, setUserPassInput] = useState("");
   const {login} = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const naviga = useNavigate();
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -20,9 +25,7 @@ function Login() {
     fetchUser();
   }, []);
 
-//   console.log(user);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const found = user.find(
       (u) => u.username === userNameInput && u.password === userPassInput
@@ -38,18 +41,26 @@ function Login() {
 
     login(found);
 
+
+    //Mỗi user có 1 cart riêng
+    const cartUser = await getCartUser(found.id);
+    const cartProductUser = cartUser?.products || [];
+    dispatch(setCart(cartProductUser));
+    localStorage.setItem("cart", JSON.stringify(cartProductUser));
+
+
     if (found.role === "admin") {
       Swal.fire({
         title: "You are an Admin, redirecting to the admin page!",
         icon: "success",
         draggable: true
       }).then(() =>{
-        window.location.href = "/admin";
+        naviga("/admin")
       })
 
     } 
     else if (found.role === "member") {
-      window.location.href = "/";
+      naviga("/")
     } 
     else {
       Swal.fire({

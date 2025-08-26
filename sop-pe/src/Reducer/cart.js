@@ -1,11 +1,13 @@
 export const CartReducer = (state = [], action) => {
     switch (action.type) {
+        case "SET_CART":
+            return action.payload
         case "ADD_TO_CART":
             return [
                 ...state,
                 {
                     id: action.payload.id,
-                    infor: action.payload,
+                    ...action.payload,
                     quantity: action.payload.quantity
                 }
             ];
