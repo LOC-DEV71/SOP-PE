@@ -1,0 +1,161 @@
+.product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-sizing: border-box;
+    width: 94vw;
+    background: #FAF7F8;
+    padding: 30px;
+    margin: 0 auto;
+    margin-bottom: 100px;
+
+    &__h1{
+        text-align: center;
+        font-size: 35px;
+    }
+   
+    &__item{
+        width: 200px;
+        border: 1px solid #facff1;
+        position: relative;
+        padding: 10px;
+        background: white;
+        box-shadow: 0 0 3px 1px #facff1;
+
+        &--img{
+            width: 180px;
+            border-radius: 1px solid #facff1;
+            img{
+                width: 100%;
+            }
+        }
+
+        &--sale{
+            color: red;
+            font-size: 10px;
+            background: rgb(255, 222, 88);
+            position: absolute;
+            padding: 0px 10px;
+            font-weight: 700;
+            top: 0;
+            right: 0;
+            p{
+                svg{
+                    color: red;
+                }
+            }
+        }
+
+        &--title{
+          p{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 650;
+          }
+        }
+
+
+        &--addCart{
+            color: #85627E;
+            border: none;
+            background: rgb(222, 220, 220);
+
+            svg{
+                width: 22px;
+                height: 22px;
+            }
+
+            &:hover{
+                background: gray;
+                color: white;
+            }
+        }
+    }
+
+}
+
+
+.ReactModalPortal{
+    position: relative;
+    .close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        border: 1px solid white;
+        font-weight: 700;
+        padding: 5px 10px;
+
+        &:hover{
+            background: gray;
+            color: white;
+        }
+    }
+
+    .addToCart{
+        position: absolute;
+        right: 65px;
+        bottom: 20px;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: 650;
+        background: linear-gradient(to right, #F92B3F, #F92B3F);
+        border: 0;
+        color: white;
+        border-radius: 8px;
+        transition: background-position 0.5s ease, background-color 0.5s ease;
+
+        &:hover{
+            background: linear-gradient(to right, #891622, #891622);
+        }
+    }
+}
+
+
+.modal{
+    display: flex;
+    justify-content: center;
+    width: 700px;
+    &__img{
+        width: 350px;
+        position: relative;
+        img{
+            width: 100%;
+        }
+
+        &--sale{
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #FFDE58;
+            color: red;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 3px 5px;
+        }
+    }
+
+    &__main{
+        width: 350px;
+        flex: 1;
+        text-align: center;
+
+        &--title{
+            font-size: 18px;
+        }
+
+        &--price{
+            font-weight: 700;
+        }
+
+        input{
+            width: 40px;
+            text-align: center;
+        }
+
+
+    }
+}
